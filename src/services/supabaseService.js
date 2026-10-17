@@ -115,6 +115,13 @@ export async function fetchPhotosManifest() {
   const cfg = getSupabaseConfig();
 
   try {
+    const { data: pubData } = client.storage.from(cfg.bucket).getPublicUrl('photos_manifest.json');
+    if (pubData && pubData.publicUrl) {
+      const res = await fetch(`${pubData.publicUrl}?t=${Date.now()}`);
+      if (res.ok) {
+        return await res.json();
+      }
+    }
     const { data: manifestData } = await client.storage
       .from(cfg.bucket)
       .download('photos_manifest.json');
@@ -139,7 +146,8 @@ export async function syncCaptionsToSupabase(captions) {
     const blob = new Blob([JSON.stringify(captions, null, 2)], { type: 'application/json' });
     const res = await client.storage.from(cfg.bucket).upload('captions_manifest.json', blob, {
       upsert: true,
-      contentType: 'application/json'
+      contentType: 'application/json',
+      cacheControl: '0'
     });
     if (res.error) return { ok: false, error: res.error.message };
     return { ok: true };
@@ -155,6 +163,13 @@ export async function fetchCaptionsFromSupabase() {
   const cfg = getSupabaseConfig();
 
   try {
+    const { data: pubData } = client.storage.from(cfg.bucket).getPublicUrl('captions_manifest.json');
+    if (pubData && pubData.publicUrl) {
+      const res = await fetch(`${pubData.publicUrl}?t=${Date.now()}`);
+      if (res.ok) {
+        return await res.json();
+      }
+    }
     const { data } = await client.storage.from(cfg.bucket).download('captions_manifest.json');
     if (data) {
       const text = await data.text();

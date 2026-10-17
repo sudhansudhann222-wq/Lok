@@ -68,6 +68,7 @@ export default function BirthdayCake({
       idx: 0,
       id: 'candleImg-0',
       label: '✨ Loukya',
+      defaultUrl: '/9ad4bbc7-304f-481e-90a5-f0a5fab52fac.jpg',
       rotate: '-2deg',
       placeholderBorder: 'border-rose-300 text-rose-400 hover:border-rose-400',
       candleGradient: 'from-pink-400 to-rose-500',
@@ -77,6 +78,7 @@ export default function BirthdayCake({
       idx: 1,
       id: 'candleImg-1',
       label: '👑 Loukya',
+      defaultUrl: '/Screenshot%202026-10-17%20213023.jpg',
       rotate: '1deg',
       placeholderBorder: 'border-purple-300 text-purple-400 hover:border-purple-400',
       candleGradient: 'from-purple-400 to-indigo-500',
@@ -86,6 +88,7 @@ export default function BirthdayCake({
       idx: 2,
       id: 'candleImg-2',
       label: '💖 Loukya',
+      defaultUrl: '/eb80199a-45d1-4fb2-b221-cca4e370bf5b.jpg',
       rotate: '2deg',
       placeholderBorder: 'border-amber-300 text-amber-500 hover:border-amber-400',
       candleGradient: 'from-amber-400 to-orange-500',
@@ -117,7 +120,7 @@ export default function BirthdayCake({
         <div className="w-full max-w-md grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6 min-h-[95px] sm:min-h-[140px] items-center justify-items-center">
           {candleConfigs.map((c) => {
             const isBlown = blownCandles[c.idx] || isCreatorMode;
-            const photoUrl = photos[c.id] || `/sudhan%20and%20lok.jpg`;
+            const photoUrl = photos[c.id] || c.defaultUrl;
 
             return (
               <div key={c.idx} className="relative w-full flex justify-center">

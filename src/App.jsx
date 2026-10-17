@@ -128,6 +128,34 @@ export default function App() {
     getAllPhotosFromDB()
       .then((savedPhotos) => {
         if (savedPhotos && Object.keys(savedPhotos).length > 0) {
+          // If savedPhotos contains the old default URLs for candles, let the new defaults take precedence
+          if (savedPhotos['candleImg-0'] && savedPhotos['candleImg-0'].includes('sudhan')) {
+            delete savedPhotos['candleImg-0'];
+          }
+          if (savedPhotos['candleImg-1'] && savedPhotos['candleImg-1'].includes('eb80199a')) {
+            delete savedPhotos['candleImg-1'];
+          }
+          if (savedPhotos['candleImg-2'] && savedPhotos['candleImg-2'].includes('9ad4bbc7')) {
+            delete savedPhotos['candleImg-2'];
+          }
+          if (savedPhotos['frameImg-1'] && savedPhotos['frameImg-1'].includes('sudhan')) {
+            delete savedPhotos['frameImg-1'];
+          }
+          if (savedPhotos['frameImg-3'] && savedPhotos['frameImg-3'].includes('sho')) {
+            delete savedPhotos['frameImg-3'];
+          }
+          if (savedPhotos['frameImg-9'] && savedPhotos['frameImg-9'].includes('div')) {
+            delete savedPhotos['frameImg-9'];
+          }
+          if (savedPhotos['sisterPhoto'] && savedPhotos['sisterPhoto'].includes('sudhan')) {
+            delete savedPhotos['sisterPhoto'];
+          }
+          if (savedPhotos['guest2Photo'] && savedPhotos['guest2Photo'].includes('sho')) {
+            delete savedPhotos['guest2Photo'];
+          }
+          if (savedPhotos['guest8Photo'] && savedPhotos['guest8Photo'].includes('div')) {
+            delete savedPhotos['guest8Photo'];
+          }
           setPhotos((prev) => ({ ...prev, ...savedPhotos }));
         }
       })

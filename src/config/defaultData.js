@@ -1,27 +1,27 @@
 export const DEFAULT_PHOTO_URLS = {
-  'candleImg-0': '/sudhan%20and%20lok.jpg',
-  'candleImg-1': '/eb80199a-45d1-4fb2-b221-cca4e370bf5b.jpg',
-  'candleImg-2': '/9ad4bbc7-304f-481e-90a5-f0a5fab52fac.jpg',
+  'candleImg-0': '/9ad4bbc7-304f-481e-90a5-f0a5fab52fac.jpg',
+  'candleImg-1': '/Screenshot%202026-10-17%20213023.jpg',
+  'candleImg-2': '/eb80199a-45d1-4fb2-b221-cca4e370bf5b.jpg',
 
-  'frameImg-1': '/sudhan%20and%20lok.jpg',
+  'frameImg-1': '/sho.jpg',
   'frameImg-2': '/disc.jpg',
-  'frameImg-3': '/sho.jpg',
+  'frameImg-3': '/div.jpg',
   'frameImg-4': '/poo%20and%20lok.jpg',
   'frameImg-5': '/fha%20nd%20lok.jpg',
   'frameImg-6': '/hassan%20and%20lok.jpg',
   'frameImg-7': '/jyo.jpg',
   'frameImg-8': '/nerd%20and%20lok.jpg',
-  'frameImg-9': '/div.jpg',
+  'frameImg-9': '/sudhan%20and%20lok.jpg',
 
-  'sisterPhoto': '/sudhan%20and%20lok.jpg',
+  'sisterPhoto': '/sho.jpg',
   'anupriyaliPhoto': '/disc.jpg',
-  'guest2Photo': '/sho.jpg',
+  'guest2Photo': '/div.jpg',
   'guest3Photo': '/poo%20and%20lok.jpg',
   'guest4Photo': '/fha%20nd%20lok.jpg',
   'guest5Photo': '/hassan%20and%20lok.jpg',
   'guest6Photo': '/jyo.jpg',
   'guest7Photo': '/nerd%20and%20lok.jpg',
-  'guest8Photo': '/div.jpg'
+  'guest8Photo': '/sudhan%20and%20lok.jpg'
 };
 
 export const PHOTO_SLOTS = {
