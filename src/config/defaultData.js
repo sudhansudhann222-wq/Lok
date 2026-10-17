@@ -4,7 +4,7 @@ export const DEFAULT_PHOTO_URLS = {
   'candleImg-2': '/eb80199a-45d1-4fb2-b221-cca4e370bf5b.jpg',
 
   'frameImg-1': '/sho.jpg',
-  'frameImg-2': '/disc.jpg',
+  'frameImg-2': '/lokthank.jpg',
   'frameImg-3': '/div.jpg',
   'frameImg-4': '/poo%20and%20lok.jpg',
   'frameImg-5': '/fha%20nd%20lok.jpg',
@@ -14,7 +14,7 @@ export const DEFAULT_PHOTO_URLS = {
   'frameImg-9': '/sudhan%20and%20lok.jpg',
 
   'sisterPhoto': '/sho.jpg',
-  'anupriyaliPhoto': '/disc.jpg',
+  'anupriyaliPhoto': '/lokthank.jpg',
   'guest2Photo': '/div.jpg',
   'guest3Photo': '/poo%20and%20lok.jpg',
   'guest4Photo': '/fha%20nd%20lok.jpg',
@@ -27,7 +27,7 @@ export const DEFAULT_PHOTO_URLS = {
 export const PHOTO_SLOTS = {
   'slot-loukya-main': {
     elementIds: ['sisterPhoto', 'frameImg-1'],
-    label: 'Loukya Birthday Queen'
+    label: 'From Shobhitha'
   },
   'slot-candle-0': {
     elementIds: ['candleImg-0'],
@@ -43,35 +43,35 @@ export const PHOTO_SLOTS = {
   },
   'slot-anupriyali': {
     elementIds: ['anupriyaliPhoto', 'frameImg-2'],
-    label: 'Special Guest: Anupriyali'
+    label: 'From Laasya'
   },
   'slot-guest2': {
     elementIds: ['guest2Photo', 'frameImg-3'],
-    label: 'Sunshine Soul'
+    label: 'From Divakar'
   },
   'slot-guest3': {
     elementIds: ['guest3Photo', 'frameImg-4'],
-    label: 'Partner in Fun'
+    label: 'From Pooja'
   },
   'slot-guest4': {
     elementIds: ['guest4Photo', 'frameImg-5'],
-    label: 'Soul Sister'
+    label: 'From Fouzul'
   },
   'slot-guest5': {
     elementIds: ['guest5Photo', 'frameImg-6'],
-    label: 'Chief Chaos Officer'
+    label: 'From Muhammed Hassan'
   },
   'slot-guest6': {
     elementIds: ['guest6Photo', 'frameImg-7'],
-    label: 'Forever Cheerleader'
+    label: 'From Jyoshitha'
   },
   'slot-guest7': {
     elementIds: ['guest7Photo', 'frameImg-8'],
-    label: 'Adventure Partner'
+    label: 'From Atchayashiri'
   },
   'slot-guest8': {
     elementIds: ['guest8Photo', 'frameImg-9'],
-    label: 'Partner in Crime'
+    label: 'From Sudhan'
   }
 };
 
@@ -82,109 +82,130 @@ export function getSlotKeyForElementId(id) {
   return id;
 }
 
+export function expandPhotoMap(inputMap) {
+  const result = { ...inputMap };
+  for (const [key, url] of Object.entries(inputMap)) {
+    if (!url) continue;
+    if (PHOTO_SLOTS[key]) {
+      PHOTO_SLOTS[key].elementIds.forEach((elId) => {
+        result[elId] = url;
+      });
+    }
+    for (const [slotKey, slot] of Object.entries(PHOTO_SLOTS)) {
+      if (slot.elementIds && slot.elementIds.includes(key)) {
+        result[slotKey] = url;
+      }
+    }
+  }
+  return result;
+}
+
 export const DEFAULT_CAPTIONS = {
   cards: {
     sister: {
-      badge: '<i class="fa-solid fa-crown text-amber-500"></i> Birthday Girl: Loukya ✨',
-      photoCaption: 'Happy Birthday, Loukya! 💖',
-      title: 'Birthday Wishes For Loukya 🌸',
+      badge: '<i class="fa-solid fa-heart text-rose-500"></i> From Shobhitha 💖',
+      photoCaption: 'Lou is my biggest yapping partner 💖',
+      title: 'Wishes From Shobhitha 🌸',
       paragraphs: [
-        'Happy Birthday, Loukya! Having you as a sister is honestly the greatest gift life could ever give. From our endless silly arguments to laughing until our stomachs hurt, you make every day brighter!',
-        'You have the kindest heart and a smile that lights up the whole room. May this year bring you nonstop happiness and all the cake you can eat!'
+        'Lou is my biggest yapping partner and she is one of few people who actually understands me.',
+        "The one who genuinely put efforts during other's bdays and post soo many pictures of them.",
+        "The one who remembers everyone's bdays and other small things."
       ],
-      tags: ['💖 Purest Heart', '😂 Drama Queen', '🌟 Unstoppable Energy']
+      tags: ['💖 Purest Heart', '🗣️ Yapping Partner', '✨ Shobhitha']
     },
     anupriyali: {
-      badge: '<i class="fa-solid fa-heart text-rose-500 animate-pulse"></i> Favorite Person: Anupriyali 🌟',
-      photoCaption: 'Featuring the iconic Anupriyali! ✨',
-      title: 'VIP Spotlight: Anupriyali 👑💜',
+      badge: '<i class="fa-solid fa-star text-purple-500 animate-pulse"></i> From Laasya 🌟',
+      photoCaption: 'Special moments with Laasya! ✨',
+      title: 'Wishes From Laasya 👑💜',
       paragraphs: [
-        "Loukya's birthday page wouldn't be complete without dedicating this side to her absolute favorite person in the whole world — Anupriyali! 🥰",
-        "Whenever Anupriyali is around, Loukya's smile gets 100x bigger and the vibe is immediately 10/10! Thank you for being Loukya's constant comfort, partner-in-crime, and favorite soul!"
+        "Loukya's birthday celebration is so special with Laasya! 🥰",
+        "Whenever we are together, the smile gets 100x bigger and the vibe is immediately 10/10! Thank you for being such an incredible soul!"
       ],
-      tags: ["💜 Loukya's #1", '👯‍♀️ Unbreakable Bond', '♾️ VIP Status']
+      tags: ['💜 Unbreakable Bond', '✨ Endless Joy', '💖 Laasya']
     },
     guest2: {
-      badge: '<i class="fa-solid fa-sun text-amber-500 animate-spin" style="animation-duration: 8s;"></i> Special Friend: Sunshine Soul ☀️',
+      badge: '<i class="fa-solid fa-sun text-amber-500 animate-spin" style="animation-duration: 8s;"></i> From Divakar ☀️',
       photoCaption: 'Always spreading warmth & smiles! ✨',
-      title: 'Birthday Love From Sunshine Soul 🌸💖',
+      title: 'Wishes From Divakar 🌸💖',
       paragraphs: [
         'Happy Birthday Loukya! Having you around always turns an ordinary day into an unforgettable adventure full of uncontrollable giggles.',
         'Thank you for bringing your authentic light, non-stop humor, and sweetest energy everywhere you go. Keep shining brighter than ever!'
       ],
-      tags: ['✨ Endless Smiles', '🌸 Sweet Energy', '💖 Forever Friendship']
+      tags: ['✨ Endless Smiles', '🌸 Sweet Energy', '💖 Divakar']
     },
     guest3: {
-      badge: '<i class="fa-solid fa-sparkles text-amber-500"></i> Special Friend: Partner in Fun 🌟',
-      photoCaption: 'The ultimate partner in laughter! 🥳',
-      title: 'Celebration Cheers For Loukya 🥳🌟',
+      badge: '<i class="fa-solid fa-sparkles text-amber-500"></i> From Pooja 🌟',
+      photoCaption: 'Thalaivaaa you are great! 🌟',
+      title: 'Wishes From Pooja 🥳🌟',
       paragraphs: [
-        'To the one and only Loukya! Every single hangout with you is guaranteed to be hilarious, lively, and full of drama in the absolute best way.',
-        'Cheers to another year of crazy memories, spontaneous plans, endless giggles, and all the sweet moments we get to celebrate together!'
+        'Thalaivaaa you are great',
+        'Enna aasirvadham panunga'
       ],
-      tags: ['🥳 Maximum Fun', '🔥 High Energy', '⭐ Unmatched Humor']
+      tags: ['🌟 Thalaivaaa', '🙏 Aasirvadham', '💖 Pooja']
     },
     guest4: {
-      badge: '<i class="fa-solid fa-seedling text-teal-600"></i> Special Friend: Soul Sister 🌸',
-      photoCaption: 'The calm to the chaos & sweetest friend! 💕',
-      title: 'Heartfelt Note For Loukya 🌷✨',
+      badge: '<i class="fa-solid fa-seedling text-teal-600"></i> From Fouzul 🌸',
+      photoCaption: 'Sweetest memories & celebrations! 💕',
+      title: 'Heartfelt Wishes From Fouzul 🌷✨',
       paragraphs: [
         'Happy Birthday to the most caring, genuine, and incredible soul! Having a friend like Loukya makes life feel so much softer, safer, and happier.',
         'May this milestone year grant every single wish your heart whispers, because honestly no one deserves beautiful things more than you do!'
       ],
-      tags: ['🌷 Purest Heart', '🫶 Comfort Person', '🕊️ Peaceful Vibes']
+      tags: ['🌷 Purest Heart', '🫶 Comfort Person', '💖 Fouzul']
     },
     guest5: {
-      badge: '<i class="fa-solid fa-masks-theater text-indigo-600"></i> Special Friend: Chief Chaos Officer 😂',
-      photoCaption: 'Mastermind of inside jokes & mischief! 😜',
-      title: 'Vibe Check For Queen Loukya 👑🎭',
+      badge: '<i class="fa-solid fa-masks-theater text-indigo-600"></i> From Muhammed Hassan 😂',
+      photoCaption: 'Mastermind of inside jokes & laughs! 😜',
+      title: 'Birthday Cheers From Muhammed Hassan 👑🎭',
       paragraphs: [
-        'Happy Birthday Loukya! Here is your official reminder that life would be 100x more boring without your signature dramatic expressions, gossip breakdowns, and random bursts of laughter.',
+        'Happy Birthday Loukya! Here is your official reminder that life would be 100x more boring without your signature dramatic expressions and random bursts of laughter.',
         'Stay iconic, stay hilarious, and never stop being the absolute queen of entertainment wherever you go!'
       ],
-      tags: ['🎭 Iconic Drama', '😂 10/10 Laughs', '🚀 Never Boring']
+      tags: ['🎭 Iconic Drama', '😂 10/10 Laughs', '💖 Muhammed Hassan']
     },
     guest6: {
-      badge: '<i class="fa-solid fa-champagne-glasses text-rose-500"></i> Special Friend: Forever Cheerleader 🥂',
-      photoCaption: "Loukya's biggest fan & lifetime supporter! 🥳",
-      title: 'A Toast to Birthday Queen Loukya 🥂✨',
+      badge: '<i class="fa-solid fa-guitar text-rose-500"></i> From Jyoshitha 🎸',
+      photoCaption: 'With her guitar & sparkling poems ✨',
+      title: 'A Magic Melody From Jyoshitha 🎸✨',
       paragraphs: [
-        'Raising a giant toast to Loukya on her big day! You deserve all the confetti, cake, love, adventures, and dream-come-true moments in the universe.',
-        "Whatever adventures and surprises this new year brings, you've got an entire squad cheering loudly in your corner forever and always!"
+        'With her guitar, she plays a tune,',
+        'Her poems sparkle like Stars and The Moon.',
+        'She speaks with passion, strong and clear,',
+        'And spreads her magic, far and near'
       ],
-      tags: ['🥂 Biggest Cheerleader', '♾️ Ride or Die', '🎂 Birthday Magic']
+      tags: ['🎸 Guitar Tunes', '🌙 Stars & Moon', '💖 Jyoshitha']
     },
     guest7: {
-      badge: '<i class="fa-solid fa-compass text-sky-600"></i> Special Friend: Adventure Partner 🌟',
+      badge: '<i class="fa-solid fa-compass text-sky-600"></i> From Atchayashiri 🌟',
       photoCaption: 'Ready for every crazy journey together! 🗺️✨',
-      title: 'Adventure Cheers For Loukya 🌟🗺️',
+      title: 'Adventure Cheers From Atchayashiri 🌟🗺️',
       paragraphs: [
         "Happy Birthday Loukya! Having you as a companion on life's adventures makes every single moment ten times more exciting and full of laughter.",
         'From spontaneous plans to creating unforgettable stories, you bring so much courage, joy, and warmth. May this new year lead you to wonderful new heights and magical journeys!'
       ],
-      tags: ['🌟 Pure Energy', '🗺️ Journey Companion', '💖 Nonstop Fun']
+      tags: ['🌟 Pure Energy', '🗺️ Journey Companion', '💖 Atchayashiri']
     },
     guest8: {
-      badge: '<i class="fa-solid fa-wand-magic-sparkles text-fuchsia-600"></i> Special Friend: Partner in Crime 💖',
-      photoCaption: 'Sharing every laugh, secret & treat! 🥳',
-      title: 'Heartfelt Love For Birthday Queen Loukya 👑💖',
+      badge: '<i class="fa-solid fa-wand-magic-sparkles text-fuchsia-600"></i> From Sudhan 💖',
+      photoCaption: 'Lokiyaaaaaaaaaaaaaaaaaaaa Ka Happy Birthday Treat Mukiyam 😋🎂',
+      title: 'Lokiyaaaaaaaaaaaaaaaaaaaa Ka Happy Birthday Treat Mukiyam 🎉',
       paragraphs: [
-        'To the sweetest, most wonderful Loukya on her special birthday! Life is so much brighter, happier, and softer with your unconditional friendship.',
-        'Thank you for always listening, always caring, and bringing pure warmth into every room you step into. You deserve all the love, surprises, and cake in the world today!'
+        'Lokiyaaaaaaaaaaaaaaaaaaaa Ka Happy Birthday Treat Mukiyam',
+        'Cake crumbs and nonstop laughter with the Queen — celebration and treat is definitely mukiyam! 💖🎉'
       ],
-      tags: ['💖 Sweetest Soul', '👯‍♀️ Partner in Crime', '🎂 Birthday Royalty']
+      tags: ['🎉 Treat Mukiyam', '💖 Sudhan', '🎂 Birthday Royalty']
     }
   },
   frames: {
-    1: { title: '👑 Birthday Queen Loukya', subtitle: '✨ Making the Birthday Wish', quote: '"Mmm! Best birthday cake ever! Sweetest bite for the Queen! 👑😋🎂"' },
-    2: { title: '🫶 Special Guest: Anupriyali', subtitle: '🎉 Cheering Loudly', quote: '"Yum! Best sister & sweetest birthday celebration ever! 💖🍰"' },
-    3: { title: '💖 Special Guest: Sunshine Soul', subtitle: '✨ Sweetest Smiles', quote: '"So sweet & delicious! Sweet cake for the brightest sunshine! ✨🥰"' },
-    4: { title: '🌟 Special Guest: Partner in Fun', subtitle: '🥳 Party Vibes', quote: '"Grabbing extra frosting! Ready to party with Loukya all night! 🥳🍰"' },
-    5: { title: '🌸 Special Guest: Soul Sister', subtitle: '💖 Best Memories', quote: '"Full of sweetness, love and forever sisterhood memories! 💕✨"' },
-    6: { title: '🎉 Special Guest: Chaos Officer', subtitle: '✨ Always Together', quote: "\"Don't worry, Loukya, only half the frosting ended up on my nose! 😂🎂\"" },
-    7: { title: '🎂 Special Guest: Forever Cheerleader', subtitle: '🥂 Cheers to Loukya!', quote: '"Three cheers for Queen Loukya! Hip hip hooray to the birthday girl! 🥂🎉👑"' },
-    8: { title: '🌟 Special Guest: Adventure Partner', subtitle: '✨ Endless Fun & Smiles', quote: '"The sweetest cake for the sweetest birthday girl! Cheers to many more adventures! 🌟🥳🍰"' },
-    9: { title: '💖 Special Guest: Partner in Crime', subtitle: '🎉 Celebrating Queen Loukya', quote: '"Cake crumbs and unstoppable laughs with Loukya! Best celebration ever! 💖🎉🎂"' }
+    1: { title: 'Shobhitha 💖', subtitle: '✨ Biggest Yapping Partner', quote: '"Lou is my biggest yapping partner & understands me like no one else! 💖🎂"' },
+    2: { title: 'Laasya 🌟', subtitle: '🎉 Cheering Loudly', quote: '"Yum! Sweetest birthday celebration for Loukya ever! 💖🍰"' },
+    3: { title: 'Divakar ☀️', subtitle: '✨ Sweetest Smiles', quote: '"So sweet & delicious! Sweet cake for the brightest celebration! ✨🥰"' },
+    4: { title: 'Pooja 🌟', subtitle: 'Thalaivaaa you are great', quote: '"Thalaivaaa you are great! Enna aasirvadham panunga! 🙏✨🎂"' },
+    5: { title: 'Fouzul 🌸', subtitle: '💖 Best Memories', quote: '"Full of sweetness, love and forever wonderful memories! 💕✨"' },
+    6: { title: 'Muhammed Hassan 😂', subtitle: '✨ Always Laughing Together', quote: "\"Don't worry, Loukya, only half the frosting ended up on my nose! 😂🎂\"" },
+    7: { title: 'Jyoshitha 🎸', subtitle: '🎸 Her poems sparkle like Stars & The Moon ✨', quote: '"With her guitar, she plays a tune, spreading her magic far and near! 🎸🌟🎂"' },
+    8: { title: 'Atchayashiri 🌟', subtitle: '✨ Endless Fun & Smiles', quote: '"The sweetest cake for the sweetest birthday girl! Cheers to many more adventures! 🌟🥳🍰"' },
+    9: { title: 'Sudhan 💖', subtitle: 'Lokiyaaaaaaaaaaaaaaaaaaaa Ka Happy Birthday Treat Mukiyam', quote: '"Lokiyaaaaaaaaaaaaaaaaaaaa Ka Happy Birthday Treat Mukiyam! 😋🎂🎉"' }
   }
 };
 
@@ -192,8 +213,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'sister',
     titleText: '✨ SCRATCH HERE! ✨',
-    subText: "Reveal Loukya's Photo & Words",
-    unlockedBadgeText: "🎉 Loukya's Photo & Words Unlocked! 💖",
+    subText: "Reveal Shobhitha's Photo & Words",
+    unlockedBadgeText: "🎉 Shobhitha's Photo & Words Unlocked! 💖",
     gradientColors: ['#f43f5e', '#fb7185', '#f59e0b'],
     borderColor: 'border-t-rose-500',
     colorTheme: 'rose'
@@ -201,8 +222,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'anupriyali',
     titleText: '💜 SCRATCH HERE! 💜',
-    subText: 'Reveal Anupriyali & Spotlight',
-    unlockedBadgeText: '🎉 Anupriyali Spotlight Unlocked! 🫶',
+    subText: "Reveal Laasya's Photo & Words",
+    unlockedBadgeText: "🎉 Laasya's Photo & Words Unlocked! 🌟",
     gradientColors: ['#9333ea', '#a855f7', '#ec4899'],
     borderColor: 'border-t-purple-500',
     colorTheme: 'purple'
@@ -210,8 +231,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'guest2',
     titleText: '💖 SCRATCH HERE! 💖',
-    subText: 'Reveal Sunshine Soul & Wishes',
-    unlockedBadgeText: '🎉 Sunshine Soul Unlocked! 💖',
+    subText: "Reveal Divakar's Photo & Words",
+    unlockedBadgeText: "🎉 Divakar's Photo & Words Unlocked! 💖",
     gradientColors: ['#ec4899', '#f43f5e', '#f59e0b'],
     borderColor: 'border-t-pink-500',
     colorTheme: 'pink'
@@ -219,8 +240,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'guest3',
     titleText: '🌟 SCRATCH HERE! 🌟',
-    subText: 'Reveal Partner in Fun & Wishes',
-    unlockedBadgeText: '🎉 Partner in Fun Unlocked! 🌟',
+    subText: "Reveal Pooja's Photo & Words",
+    unlockedBadgeText: "🎉 Pooja's Photo & Words Unlocked! 🌟",
     gradientColors: ['#f59e0b', '#fb923c', '#e11d48'],
     borderColor: 'border-t-amber-500',
     colorTheme: 'amber'
@@ -228,8 +249,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'guest4',
     titleText: '🌸 SCRATCH HERE! 🌸',
-    subText: 'Reveal Soul Sister & Wishes',
-    unlockedBadgeText: '🎉 Soul Sister Unlocked! 🌸',
+    subText: "Reveal Fouzul's Photo & Words",
+    unlockedBadgeText: "🎉 Fouzul's Photo & Words Unlocked! 🌸",
     gradientColors: ['#0d9488', '#14b8a6', '#06b6d4'],
     borderColor: 'border-t-teal-500',
     colorTheme: 'teal'
@@ -237,8 +258,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'guest5',
     titleText: '🎉 SCRATCH HERE! 🎉',
-    subText: 'Reveal Chaos Officer & Wishes',
-    unlockedBadgeText: '🎉 Chief Chaos Officer Unlocked! 😂',
+    subText: "Reveal Muhammed Hassan's Photo & Words",
+    unlockedBadgeText: "🎉 Muhammed Hassan's Photo & Words Unlocked! 😂",
     gradientColors: ['#4f46e5', '#6366f1', '#a855f7'],
     borderColor: 'border-t-indigo-500',
     colorTheme: 'indigo'
@@ -246,8 +267,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'guest6',
     titleText: '🎂 SCRATCH HERE! 🎂',
-    subText: 'Reveal Cheerleader & Wishes',
-    unlockedBadgeText: '🎉 Forever Cheerleader Unlocked! 🥂',
+    subText: "Reveal Jyoshitha's Photo & Words",
+    unlockedBadgeText: "🎉 Jyoshitha's Photo & Words Unlocked! 🎸",
     gradientColors: ['#e11d48', '#f43f5e', '#7c3aed'],
     borderColor: 'border-t-rose-500',
     colorTheme: 'rose'
@@ -255,8 +276,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'guest7',
     titleText: '🌟 SCRATCH HERE! 🌟',
-    subText: 'Reveal Adventure Partner & Wishes',
-    unlockedBadgeText: '🎉 Adventure Partner Unlocked! 🌟',
+    subText: "Reveal Atchayashiri's Photo & Words",
+    unlockedBadgeText: "🎉 Atchayashiri's Photo & Words Unlocked! 🌟",
     gradientColors: ['#0284c7', '#38bdf8', '#06b6d4'],
     borderColor: 'border-t-sky-500',
     colorTheme: 'sky'
@@ -264,8 +285,8 @@ export const SCRATCH_CARDS_LIST = [
   {
     key: 'guest8',
     titleText: '💖 SCRATCH HERE! 💖',
-    subText: 'Reveal Partner in Crime & Wishes',
-    unlockedBadgeText: '🎉 Partner in Crime Unlocked! 💖',
+    subText: "Reveal Sudhan's Photo & Words",
+    unlockedBadgeText: "🎉 Sudhan's Photo & Words Unlocked! 💖",
     gradientColors: ['#8b5cf6', '#d946ef', '#f43f5e'],
     borderColor: 'border-t-fuchsia-500',
     colorTheme: 'fuchsia'
@@ -273,13 +294,13 @@ export const SCRATCH_CARDS_LIST = [
 ];
 
 export const FRAMES_LIST = [
-  { id: 1, gradient: 'from-rose-500 to-pink-500', friendKey: 'sister', label: 'Feed Queen Loukya!' },
-  { id: 2, gradient: 'from-purple-600 to-pink-500', friendKey: 'anupriyali', label: 'Feed Anupriyali!' },
-  { id: 3, gradient: 'from-pink-500 to-rose-400', friendKey: 'guest2', label: 'Feed Sunshine!' },
-  { id: 4, gradient: 'from-amber-500 to-orange-500', friendKey: 'guest3', label: 'Feed Partner in Fun!' },
-  { id: 5, gradient: 'from-teal-600 to-emerald-500', friendKey: 'guest4', label: 'Feed Soul Sister!' },
-  { id: 6, gradient: 'from-indigo-600 to-purple-600', friendKey: 'guest5', label: 'Feed Chaos Officer!' },
-  { id: 7, gradient: 'from-rose-600 to-purple-600', friendKey: 'guest6', label: 'Feed Cheerleader!' },
-  { id: 8, gradient: 'from-sky-500 to-teal-500', friendKey: 'guest7', label: 'Feed Adventure Partner!' },
-  { id: 9, gradient: 'from-fuchsia-600 via-pink-600 to-rose-600', friendKey: 'guest8', label: 'Feed Partner in Crime!' }
+  { id: 1, gradient: 'from-rose-500 to-pink-500', friendKey: 'sister', label: 'Feed Shobhitha!' },
+  { id: 2, gradient: 'from-purple-600 to-pink-500', friendKey: 'anupriyali', label: 'Feed Laasya!' },
+  { id: 3, gradient: 'from-pink-500 to-rose-400', friendKey: 'guest2', label: 'Feed Divakar!' },
+  { id: 4, gradient: 'from-amber-500 to-orange-500', friendKey: 'guest3', label: 'Feed Pooja!' },
+  { id: 5, gradient: 'from-teal-600 to-emerald-500', friendKey: 'guest4', label: 'Feed Fouzul!' },
+  { id: 6, gradient: 'from-indigo-600 to-purple-600', friendKey: 'guest5', label: 'Feed Muhammed Hassan!' },
+  { id: 7, gradient: 'from-rose-600 to-purple-600', friendKey: 'guest6', label: 'Feed Jyoshitha!' },
+  { id: 8, gradient: 'from-sky-500 to-teal-500', friendKey: 'guest7', label: 'Feed Atchayashiri!' },
+  { id: 9, gradient: 'from-fuchsia-600 via-pink-600 to-rose-600', friendKey: 'guest8', label: 'Feed Sudhan!' }
 ];

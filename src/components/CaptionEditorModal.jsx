@@ -125,26 +125,26 @@ export default function CaptionEditorModal({
               className="w-full text-xs sm:text-sm font-sans px-3.5 py-2.5 rounded-xl border border-rose-200 bg-white focus:border-rose-500 focus:outline-none transition shadow-sm font-medium"
             >
               <optgroup label="✨ Interactive Scratch Cards (Screen 4)">
-                <option value="guest4">🌸 Card 5: Soul Sister (Heartfelt Note)</option>
-                <option value="sister">👑 Card 1: Loukya (Birthday Wishes)</option>
-                <option value="anupriyali">💜 Card 2: Anupriyali (VIP Spotlight)</option>
-                <option value="guest2">☀️ Card 3: Sunshine Soul (Sweet Smiles)</option>
-                <option value="guest3">🌟 Card 4: Partner in Fun (Party Cheers)</option>
-                <option value="guest5">😂 Card 6: Chaos Officer (Iconic Vibe)</option>
-                <option value="guest6">🥂 Card 7: Forever Cheerleader (Celebration Toast)</option>
-                <option value="guest7">🌟 Card 8: Adventure Partner (Adventure Cheers)</option>
-                <option value="guest8">💖 Card 9: Partner in Crime (Heartfelt Love)</option>
+                <option value="sister">💖 Card 1: From Shobhitha</option>
+                <option value="anupriyali">💜 Card 2: From Laasya</option>
+                <option value="guest2">☀️ Card 3: From Divakar</option>
+                <option value="guest3">🌟 Card 4: From Pooja</option>
+                <option value="guest4">🌸 Card 5: From Fouzul</option>
+                <option value="guest5">😂 Card 6: From Muhammed Hassan</option>
+                <option value="guest6">🎸 Card 7: From Jyoshitha</option>
+                <option value="guest7">🌟 Card 8: From Atchayashiri</option>
+                <option value="guest8">💖 Card 9: From Sudhan</option>
               </optgroup>
-              <optgroup label="🖼️ Cake Cutting Frames (Top Gallery)">
-                <option value="frame-1">👑 Frame 1: Birthday Queen Loukya</option>
-                <option value="frame-2">🫶 Frame 2: Special Guest: Anupriyali</option>
-                <option value="frame-3">💖 Frame 3: Sunshine Soul</option>
-                <option value="frame-4">🌟 Frame 4: Partner in Fun</option>
-                <option value="frame-5">🌸 Frame 5: Soul Sister</option>
-                <option value="frame-6">🎉 Frame 6: Chaos Officer</option>
-                <option value="frame-7">🎂 Frame 7: Forever Cheerleader</option>
-                <option value="frame-8">🌟 Frame 8: Adventure Partner</option>
-                <option value="frame-9">💖 Frame 9: Partner in Crime</option>
+              <optgroup label="🖼️ Cake Feeding Frames (Top Gallery)">
+                <option value="frame-1">💖 Frame 1: Shobhitha</option>
+                <option value="frame-2">💜 Frame 2: Laasya</option>
+                <option value="frame-3">☀️ Frame 3: Divakar</option>
+                <option value="frame-4">🌟 Frame 4: Pooja</option>
+                <option value="frame-5">🌸 Frame 5: Fouzul</option>
+                <option value="frame-6">😂 Frame 6: Muhammed Hassan</option>
+                <option value="frame-7">🎸 Frame 7: Jyoshitha</option>
+                <option value="frame-8">🌟 Frame 8: Atchayashiri</option>
+                <option value="frame-9">💖 Frame 9: Sudhan</option>
               </optgroup>
             </select>
           </div>
@@ -173,7 +173,7 @@ export default function CaptionEditorModal({
                     type="text"
                     value={friendBadge}
                     onChange={e => setFriendBadge(e.target.value)}
-                    placeholder="e.g. Special Friend: Soul Sister 🌸"
+                    placeholder="e.g. From Fouzul 🌸"
                     className="w-full text-xs sm:text-sm px-3.5 py-2 rounded-xl border border-slate-200 focus:border-rose-500 focus:outline-none transition"
                   />
                 </div>
@@ -213,7 +213,7 @@ export default function CaptionEditorModal({
                   type="text"
                   value={noteTags}
                   onChange={e => setNoteTags(e.target.value)}
-                  placeholder="e.g. 🌷 Purest Heart, 🫶 Comfort Person, 🕊️ Peaceful Vibes"
+                  placeholder="e.g. 🌷 Purest Heart, 🫶 Comfort Person, 💖 Fouzul"
                   className="w-full text-xs sm:text-sm px-3.5 py-2 rounded-xl border border-slate-200 focus:border-rose-500 focus:outline-none transition"
                 />
               </div>
@@ -228,7 +228,7 @@ export default function CaptionEditorModal({
                   type="text"
                   value={frameTitle}
                   onChange={e => setFrameTitle(e.target.value)}
-                  placeholder="e.g. 🌸 Special Guest: Soul Sister"
+                  placeholder="e.g. Fouzul 🌸"
                   className="w-full text-xs sm:text-sm px-3.5 py-2 rounded-xl border border-slate-200 focus:border-rose-500 focus:outline-none transition font-medium"
                 />
               </div>

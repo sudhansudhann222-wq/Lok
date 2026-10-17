@@ -49,7 +49,7 @@ export default function CakeFeedingGallery({
             Loukya & Friends Cake Feeding Gallery 🎂✨
           </h2>
           <p className="text-slate-600 text-xs sm:text-sm">
-            Feed cake to Loukya & all 8 special friends one by one!
+            Feed delicious cake to all 9 wonderful friends one by one!
           </p>
         </div>
 
@@ -101,89 +101,102 @@ export default function CakeFeedingGallery({
             </span>
           </div>
 
-          {/* Main Card */}
-          <div
-            key={currentFrame.id}
-            className={`bg-white p-4 sm:p-5 pb-5 rounded-3xl shadow-2xl border-2 border-rose-200 w-full transition-all duration-300 relative ${
-              isCurrentFed ? 'frame-fed-active' : ''
-            }`}
-          >
-            {/* Header Badge */}
-            <div
-              className={`bg-gradient-to-r ${currentFrame.gradient} text-white text-xs sm:text-sm font-display font-bold px-4 py-1.5 rounded-full shadow text-center mb-3 flex items-center justify-center gap-2`}
-            >
-              <span>{currentFrameData.title || `Frame ${currentFrame.id}`}</span>
-              {isCreatorMode && (
-                <button
-                  type="button"
-                  onClick={() => onEditFrame(`frame-${currentFrame.id}`)}
-                  className="opacity-80 hover:opacity-100 transition cursor-pointer ml-1"
-                  title="Edit Frame Caption"
-                >
-                  <i className="fa-solid fa-pen text-xs"></i>
-                </button>
-              )}
-            </div>
+          {/* Pre-rendered Card Deck (All 9 frames preloaded in DOM for 0ms instant display) */}
+          {FRAMES_LIST.map((frame, index) => {
+            const isFed = cakeServedState[index];
+            const frameData = (captions.frames && captions.frames[frame.id]) || {};
+            const photoUrl = photos[`frameImg-${frame.id}`] || `/sudhan%20and%20lok.jpg`;
+            const isSelected = index === currentIndex;
 
-            {/* Photo Container */}
-            <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-rose-50 relative border border-slate-100 shadow-inner">
-              {isCurrentFed && (
-                <div className="absolute top-3 left-3 z-10 px-3 py-1.5 rounded-full bg-white/95 text-rose-600 font-display font-bold text-xs shadow-lg border border-rose-200 flex items-center gap-1.5 animate-bounce">
-                  <span>🍰 Fed!</span>
+            return (
+              <div
+                key={frame.id}
+                className={`${
+                  isSelected ? 'block animate-fade-in' : 'hidden'
+                } bg-white p-4 sm:p-5 pb-5 rounded-3xl shadow-2xl border-2 border-rose-200 w-full transition-all duration-300 relative ${
+                  isFed ? 'frame-fed-active' : ''
+                }`}
+              >
+                {/* Header Badge */}
+                <div
+                  className={`bg-gradient-to-r ${frame.gradient} text-white text-xs sm:text-sm font-display font-bold px-4 py-1.5 rounded-full shadow text-center mb-3 flex items-center justify-center gap-2`}
+                >
+                  <span>{frameData.title || `Frame ${frame.id}`}</span>
+                  {isCreatorMode && (
+                    <button
+                      type="button"
+                      onClick={() => onEditFrame(`frame-${frame.id}`)}
+                      className="opacity-80 hover:opacity-100 transition cursor-pointer ml-1"
+                      title="Edit Frame Caption"
+                    >
+                      <i className="fa-solid fa-pen text-xs"></i>
+                    </button>
+                  )}
                 </div>
-              )}
 
-              <img
-                id={`frameImg-${currentFrame.id}`}
-                src={currentPhotoUrl}
-                alt={currentFrameData.title || 'Friend Photo'}
-                className="w-full h-full object-cover"
-              />
+                {/* Photo Container */}
+                <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-rose-50 relative border border-slate-100 shadow-inner">
+                  {isFed && (
+                    <div className="absolute top-3 left-3 z-10 px-3 py-1.5 rounded-full bg-white/95 text-rose-600 font-display font-bold text-xs shadow-lg border border-rose-200 flex items-center gap-1.5 animate-bounce">
+                      <span>🍰 Fed!</span>
+                    </div>
+                  )}
 
-              {isCreatorMode && (
-                <label
-                  className="cursor-pointer absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-white/95 hover:bg-rose-600 text-rose-600 hover:text-white flex items-center gap-1.5 shadow-md text-xs font-semibold transition"
-                  title="Upload Photo"
-                >
-                  <i className="fa-solid fa-camera"></i>
-                  <span>Change Photo</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => onUploadPhoto(e, `frameImg-${currentFrame.id}`)}
+                  <img
+                    id={`frameImg-${frame.id}`}
+                    src={photoUrl}
+                    alt={frameData.title || 'Friend Photo'}
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                    decoding="async"
                   />
-                </label>
-              )}
-            </div>
 
-            {/* Subtitle */}
-            <p className="font-display font-bold text-sm sm:text-base text-slate-800 mt-3 text-center truncate">
-              {currentFrameData.subtitle || ''}
-            </p>
-
-            {/* Cake Serving Action Area */}
-            <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col items-center w-full">
-              {!isCurrentFed ? (
-                <button
-                  onClick={() => handleFeedAndNext(currentIndex)}
-                  className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white font-display font-bold text-xs sm:text-sm shadow-md hover:scale-[1.02] active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>🍰</span>
-                  <span>{currentFrame.label} ✨</span>
-                </button>
-              ) : (
-                <div className="w-full flex flex-col items-center gap-1.5 animate-fade-in">
-                  <div className="w-full py-1 px-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-display font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-sm">
-                    <span>🍰 Fed Delicious Cake! ✨</span>
-                  </div>
-                  <p className="font-sans text-xs sm:text-sm text-slate-700 italic text-center px-2 leading-relaxed">
-                    "{currentFrameData.quote || ''}"
-                  </p>
+                  {isCreatorMode && (
+                    <label
+                      className="cursor-pointer absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-white/95 hover:bg-rose-600 text-rose-600 hover:text-white flex items-center gap-1.5 shadow-md text-xs font-semibold transition"
+                      title="Upload Photo"
+                    >
+                      <i className="fa-solid fa-camera"></i>
+                      <span>Change Photo</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => onUploadPhoto(e, `frameImg-${frame.id}`)}
+                      />
+                    </label>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
+
+                {/* Subtitle */}
+                <p className="font-display font-bold text-sm sm:text-base text-slate-800 mt-3 text-center truncate">
+                  {frameData.subtitle || ''}
+                </p>
+
+                {/* Cake Serving Action Area */}
+                <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col items-center w-full">
+                  {!isFed ? (
+                    <button
+                      onClick={() => handleFeedAndNext(index)}
+                      className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white font-display font-bold text-xs sm:text-sm shadow-md hover:scale-[1.02] active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>🍰</span>
+                      <span>{frame.label} ✨</span>
+                    </button>
+                  ) : (
+                    <div className="w-full flex flex-col items-center gap-1.5 animate-fade-in">
+                      <div className="w-full py-1 px-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-display font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-sm">
+                        <span>🍰 Fed Delicious Cake! ✨</span>
+                      </div>
+                      <p className="font-sans text-xs sm:text-sm text-slate-700 italic text-center px-2 leading-relaxed">
+                        "{frameData.quote || ''}"
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
 
           {/* Previous / Next Controls */}
           <div className="flex items-center justify-between w-full mt-4 gap-3 px-1">

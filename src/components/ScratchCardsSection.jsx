@@ -108,18 +108,31 @@ export default function ScratchCardsSection({
             </span>
           </div>
 
-          {/* Featured Scratch Card */}
-          <ScratchCardItem
-            key={currentConfig.key}
-            config={currentConfig}
-            cardData={currentCardData}
-            photoUrl={currentPhotoUrl}
-            isCreatorMode={isCreatorMode}
-            onUploadPhoto={onUploadPhoto}
-            onEditNote={onEditNote}
-            onRevealSuccess={handleCardRevealed}
-            isRevealedProp={unlockedKeys[currentConfig.key]}
-          />
+          {/* Pre-rendered Card Deck (All 9 scratch cards preloaded in DOM for 0ms instant display) */}
+          {SCRATCH_CARDS_LIST.map((config, idx) => {
+            const cardData = (captions.cards && captions.cards[config.key]) || {};
+            const photoKey = `${config.key === 'sister' ? 'sister' : config.key}Photo`;
+            const photoUrl = photos[photoKey] || `/sudhan%20and%20lok.jpg`;
+            const isSelected = idx === currentIndex;
+
+            return (
+              <div
+                key={config.key}
+                className={`${isSelected ? 'w-full block animate-fade-in' : 'hidden'}`}
+              >
+                <ScratchCardItem
+                  config={config}
+                  cardData={cardData}
+                  photoUrl={photoUrl}
+                  isCreatorMode={isCreatorMode}
+                  onUploadPhoto={onUploadPhoto}
+                  onEditNote={onEditNote}
+                  onRevealSuccess={handleCardRevealed}
+                  isRevealedProp={unlockedKeys[config.key]}
+                />
+              </div>
+            );
+          })}
 
           {/* Navigation Controls */}
           <div className="flex items-center justify-between w-full mt-4 gap-3 px-1">

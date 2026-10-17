@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 
 // Config & Data
-import { DEFAULT_PHOTO_URLS, DEFAULT_CAPTIONS, FRAMES_LIST } from './config/defaultData';
+import { DEFAULT_PHOTO_URLS, DEFAULT_CAPTIONS, FRAMES_LIST, expandPhotoMap } from './config/defaultData';
 import { getSupabaseConfig } from './config/supabase';
 
 // Services
@@ -128,7 +128,7 @@ export default function App() {
     getAllPhotosFromDB()
       .then((savedPhotos) => {
         if (savedPhotos && Object.keys(savedPhotos).length > 0) {
-          // If savedPhotos contains the old default URLs for candles, let the new defaults take precedence
+          // If savedPhotos contains the old default URLs, let the new defaults take precedence
           if (savedPhotos['candleImg-0'] && savedPhotos['candleImg-0'].includes('sudhan')) {
             delete savedPhotos['candleImg-0'];
           }
@@ -140,6 +140,12 @@ export default function App() {
           }
           if (savedPhotos['frameImg-1'] && savedPhotos['frameImg-1'].includes('sudhan')) {
             delete savedPhotos['frameImg-1'];
+          }
+          if (savedPhotos['frameImg-2'] && (savedPhotos['frameImg-2'].includes('disc') || savedPhotos['frameImg-2'].includes('div'))) {
+            delete savedPhotos['frameImg-2'];
+          }
+          if (savedPhotos['anupriyaliPhoto'] && (savedPhotos['anupriyaliPhoto'].includes('disc') || savedPhotos['anupriyaliPhoto'].includes('div'))) {
+            delete savedPhotos['anupriyaliPhoto'];
           }
           if (savedPhotos['frameImg-3'] && savedPhotos['frameImg-3'].includes('sho')) {
             delete savedPhotos['frameImg-3'];
@@ -166,6 +172,41 @@ export default function App() {
       const storedCaptions = localStorage.getItem('loukya_custom_captions');
       if (storedCaptions) {
         const parsed = JSON.parse(storedCaptions);
+        const oldKeywords = [
+          'Anupriyali',
+          'Sunshine Soul',
+          'Soul Sister',
+          'Chief Chaos',
+          'Chaos Officer',
+          'Forever Cheerleader',
+          'Adventure Partner',
+          'Partner in Fun',
+          'Partner in Crime',
+          'Birthday Girl: Loukya',
+          'Birthday Wishes For Loukya',
+          'Birthday Queen Loukya',
+          'Making the Birthday',
+          'Party Vibes',
+          'Cheers to Loukya',
+          'Celebrating Queen',
+          'Having you as a sister'
+        ];
+        if (parsed.cards) {
+          for (const key of Object.keys(parsed.cards)) {
+            const text = JSON.stringify(parsed.cards[key]);
+            if (oldKeywords.some((kw) => text.includes(kw))) {
+              delete parsed.cards[key];
+            }
+          }
+        }
+        if (parsed.frames) {
+          for (const key of Object.keys(parsed.frames)) {
+            const text = JSON.stringify(parsed.frames[key]);
+            if (oldKeywords.some((kw) => text.includes(kw))) {
+              delete parsed.frames[key];
+            }
+          }
+        }
         setCaptions((prev) => ({
           ...prev,
           cards: { ...prev.cards, ...parsed.cards },
@@ -176,15 +217,34 @@ export default function App() {
       console.warn('Captions parse error:', e);
     }
 
+    // Proactively preload all default photos into memory cache immediately
+    Object.values(DEFAULT_PHOTO_URLS).forEach((url) => {
+      if (url && typeof url === 'string') {
+        const img = new Image();
+        img.src = url;
+      }
+    });
+
     // 4. Check Supabase Remote Manifest for universal sync
     const sbConfig = getSupabaseConfig();
     if (sbConfig.isConfigured) {
       downloadManifestFromSupabase()
         .then((remotePhotos) => {
           if (remotePhotos && Object.keys(remotePhotos).length > 0) {
-            setPhotos((prev) => ({ ...prev, ...remotePhotos }));
+            if (remotePhotos['frameImg-2'] && remotePhotos['frameImg-2'].includes('disc')) delete remotePhotos['frameImg-2'];
+            if (remotePhotos['anupriyaliPhoto'] && remotePhotos['anupriyaliPhoto'].includes('disc')) delete remotePhotos['anupriyaliPhoto'];
+            if (remotePhotos['slot-anupriyali'] && remotePhotos['slot-anupriyali'].includes('disc')) delete remotePhotos['slot-anupriyali'];
+            const expanded = expandPhotoMap(remotePhotos);
+            setPhotos((prev) => ({ ...prev, ...expanded }));
+            // Preload remote images in parallel immediately
+            Object.values(expanded).forEach((url) => {
+              if (url && typeof url === 'string') {
+                const img = new Image();
+                img.src = url;
+              }
+            });
             // Also cache to IndexedDB for offline fast loads
-            Object.entries(remotePhotos).forEach(([slot, url]) => {
+            Object.entries(expanded).forEach(([slot, url]) => {
               savePhotoToDB(slot, url);
             });
           }
@@ -194,6 +254,41 @@ export default function App() {
       downloadCaptionsFromSupabase()
         .then((remoteCaptions) => {
           if (remoteCaptions && (remoteCaptions.cards || remoteCaptions.frames)) {
+            const oldKeywords = [
+              'Anupriyali',
+              'Sunshine Soul',
+              'Soul Sister',
+              'Chief Chaos',
+              'Chaos Officer',
+              'Forever Cheerleader',
+              'Adventure Partner',
+              'Partner in Fun',
+              'Partner in Crime',
+              'Birthday Girl: Loukya',
+              'Birthday Wishes For Loukya',
+              'Birthday Queen Loukya',
+              'Making the Birthday',
+              'Party Vibes',
+              'Cheers to Loukya',
+              'Celebrating Queen',
+              'Having you as a sister'
+            ];
+            if (remoteCaptions.cards) {
+              for (const key of Object.keys(remoteCaptions.cards)) {
+                const text = JSON.stringify(remoteCaptions.cards[key]);
+                if (oldKeywords.some((kw) => text.includes(kw))) {
+                  delete remoteCaptions.cards[key];
+                }
+              }
+            }
+            if (remoteCaptions.frames) {
+              for (const key of Object.keys(remoteCaptions.frames)) {
+                const text = JSON.stringify(remoteCaptions.frames[key]);
+                if (oldKeywords.some((kw) => text.includes(kw))) {
+                  delete remoteCaptions.frames[key];
+                }
+              }
+            }
             setCaptions((prev) => ({
               ...prev,
               cards: { ...prev.cards, ...remoteCaptions.cards },
@@ -505,22 +600,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="w-full text-center py-4 text-slate-400 text-xs z-10">
-        <p>
-          Crafted with 💖 for Loukya •{' '}
-          <button
-            onClick={() => {
-              if (isCreatorMode) {
-                setIsCreatorMode(false);
-                showToast('Creator Studio Locked 🔒', 'info');
-              } else {
-                setIsPinModalOpen(true);
-              }
-            }}
-            className="hover:text-rose-500 transition cursor-pointer underline underline-offset-2"
-          >
-            {isCreatorMode ? 'Lock Creator Studio' : 'Creator Access 👑'}
-          </button>
-        </p>
+        <p>Crafted with 💖 for Loukya</p>
       </footer>
 
       {/* Floating Creator Toolbar (Visible only in Creator Mode) */}
