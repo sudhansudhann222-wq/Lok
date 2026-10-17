@@ -23,7 +23,6 @@ import ToastContainer from './components/ToastContainer';
 import Screen1Prompt from './components/Screen1Prompt';
 import Screen2Tease from './components/Screen2Tease';
 import Screen3GiftBox from './components/Screen3GiftBox';
-import CandlePolaroids from './components/CandlePolaroids';
 import BirthdayCake from './components/BirthdayCake';
 import CakeServingDashboard from './components/CakeServingDashboard';
 import CakeFeedingGallery from './components/CakeFeedingGallery';
@@ -428,20 +427,16 @@ export default function App() {
               </p>
             </div>
 
-            {/* 3 Candle Polaroids with Blow Interactivity */}
-            <CandlePolaroids
+            {/* Interactive Birthday Cake & Candles Centerpiece */}
+            <BirthdayCake
               photos={photos}
               blownCandles={blownCandles}
               setBlownCandles={setBlownCandles}
-              isCreatorMode={effectiveCreatorMode}
-              onUploadPhoto={handleUploadPhoto}
-            />
-
-            {/* 3-Tier Birthday Cake with Cutting Interaction */}
-            <BirthdayCake
               isCut={isCakeCut}
               onCutCake={handleCutCake}
               onRelight={handleRelight}
+              isCreatorMode={effectiveCreatorMode}
+              onUploadPhoto={handleUploadPhoto}
             />
 
             {/* Cake Serving Dashboard (0 / 9 Fed) */}
