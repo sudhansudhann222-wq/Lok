@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Pacifico&display=swap');
+
+:root {
+  font-family: 'Inter', system-ui, sans-serif;
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 10%, #fff1f2 0%, #fdf4ff 50%, #faf5ff 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Fredoka', sans-serif;
+}
+
+.font-script {
+  font-family: 'Pacifico', cursive;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px -5px rgba(244, 63, 94, 0.12), 0 4px 10px -2px rgba(168, 85, 247, 0.08);
+}
+
+.glass-card:hover {
+  box-shadow: 0 16px 36px -6px rgba(244, 63, 94, 0.2), 0 8px 16px -4px rgba(168, 85, 247, 0.14);
+}
+
+/* 3D Tiered Cake Styling */
+.cake-tier-3d {
+  position: relative;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.12),
+              inset 0 4px 6px rgba(255, 255, 255, 0.6),
+              inset 0 -6px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+  transition: transform 0.3s ease;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Cake Plate Fed Pulse */
+@keyframes plateFedPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.5), 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(244, 63, 94, 0), 0 16px 32px -4px rgba(244, 63, 94, 0.25);
+    transform: scale(1.02);
+  }
+}
+
+.frame-fed-active {
+  animation: plateFedPulse 2.5s infinite ease-in-out !important;
+}
+
+/* Creator Studio Button Pulse */
+@keyframes creatorPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+  50% { transform: scale(1.04); box-shadow: 0 0 0 6px rgba(244, 63, 94, 0); }
+}
+
+.creator-pulse {
+  animation: creatorPulse 2.2s infinite;
+}
+
+/* Slide Up Modal */
+@keyframes slideUp {
+  from { transform: translateY(100%) translateX(-50%); opacity: 0; }
+  to { transform: translateY(0) translateX(-50%); opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3D Gift Box Unwrapping */
+@keyframes unwrapLid {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  50% { transform: translateY(-70px) rotate(-16deg) scale(1.1); opacity: 0.9; }
+  100% { transform: translateY(-240px) rotate(-35deg) scale(0.6); opacity: 0; pointer-events: none; }
+}
+
+@keyframes unwrapBox {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15) rotate(2deg); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1.25); opacity: 0; pointer-events: none; }
+}
+
+.unwrap-lid {
+  animation: unwrapLid 1s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+.unwrap-box {
+  animation: unwrapBox 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(244, 63, 94, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 63, 94, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 63, 94, 0.45);
+}
